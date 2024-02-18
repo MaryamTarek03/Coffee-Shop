@@ -43,10 +43,15 @@ class _CustomGridViewState extends State<CustomGridView> {
 }
 
 class Coffee extends StatefulWidget {
-  const Coffee({super.key, required this.coffeeModel, required this.onPressed});
+  Coffee({super.key, required this.coffeeModel, required this.onPressed});
 
   final CoffeeModel coffeeModel;
   final void Function(List<Widget>) onPressed;
+  bool isAdded = false;
+  int index = 0;
+  // bool exist(){
+    
+  // }
 
   @override
   State<Coffee> createState() => _CoffeeState();
@@ -58,6 +63,7 @@ class _CoffeeState extends State<Coffee> {
     var screenSize = MediaQuery.of(context).size;
     var screenWidth = MediaQuery.of(context).size.width;
     var screenHeight = MediaQuery.of(context).size.height;
+
     return Container(
       height: screenHeight * 0.3,
       width: screenWidth * 0.4,
@@ -155,14 +161,23 @@ class _CoffeeState extends State<Coffee> {
                         InkWell(
                           onTap: () {
                             setState(() {
-                              cart.add(
-                                OrderItem(
-                                  name: widget.coffeeModel.name,
-                                  nameSubtitle: widget.coffeeModel.subName,
-                                  price: widget.coffeeModel.price,
-                                  imagePicture: widget.coffeeModel.imgPath,
-                                ),
-                              );
+                              if (widget.isAdded) {
+                                cart.removeWhere((element) {
+                                  return element.price ==
+                                      widget.coffeeModel.price;
+                                });
+                              } else {
+                                cart.add(
+                                  OrderItem(
+                                    name: widget.coffeeModel.name,
+                                    nameSubtitle: widget.coffeeModel.subName,
+                                    price: widget.coffeeModel.price,
+                                    imagePicture: widget.coffeeModel.imgPath,
+                                  ),
+                                );
+                                // widget.index = widget.coffeeModel.price;
+                              }
+                              widget.isAdded = (!widget.isAdded);
                               print(cart);
                               widget.onPressed(cart);
                             });
@@ -175,8 +190,8 @@ class _CoffeeState extends State<Coffee> {
                               borderRadius: BorderRadius.circular(7),
                               color: MyColors().myBrown,
                             ),
-                            child: const Icon(
-                              Icons.add,
+                            child: Icon(
+                              widget.isAdded ? Icons.remove : Icons.add,
                               color: Colors.white,
                               size: 14,
                             ),

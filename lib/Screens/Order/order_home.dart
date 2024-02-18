@@ -1,4 +1,5 @@
 import 'package:coffee_shop/Screens/Home/HomePage.dart';
+import 'package:coffee_shop/Screens/Order/Components/order_item.dart';
 import 'package:coffee_shop/Screens/Order/order_components.dart';
 import 'package:coffee_shop/colors_and_constants.dart';
 import 'package:flutter/material.dart';
@@ -18,13 +19,11 @@ class OrderHome extends StatefulWidget {
 }
 
 class _OrderHomeState extends State<OrderHome> {
-  void updateListOfOrders(List<Widget> newOrderItemList) {
+  void updateListOfOrders(List<OrderItem> newOrderItemList) {
     setState(() {
       cart = newOrderItemList;
     });
   }
-
-  double priceTotal = 0;
 
   // void updatePrice() {
   //   for (OrderItem element in orderedItemsList) {
@@ -34,12 +33,35 @@ class _OrderHomeState extends State<OrderHome> {
   //   }
   // }
 
+  void clearCart() {
+    setState(() {
+      cart.clear();
+      widget.updateIndex(0);
+    });
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: const MyText(
+          text: 'Cleared Successfully',
+          color: Colors.white,
+          isBold: false,
+          size: 16,
+        ),
+        duration: const Duration(milliseconds: 700),
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: MyColors().myBrown,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(15),
+          ),
+        ),
+      ),
+    );
+  }
+
+  double priceTotal = 0;
+
   int selectedIndex = 1;
   int countNumber = 1;
-  final double price = 4.53;
-  final String name = 'Cappuccino';
-  final String nameSubtitle = 'with Chocolate';
-  final String imagePicture = 'assets/pictures/HomeCoffee1.png';
 
   @override
   Widget build(BuildContext context) {
@@ -51,9 +73,6 @@ class _OrderHomeState extends State<OrderHome> {
         isDeliver: true,
       ),
     ];
-
-    final String totalPrice =
-        (price * countNumber + selectedIndex).toStringAsFixed(2);
 
     var screenSize = MediaQuery.of(context).size;
 
@@ -112,6 +131,13 @@ class _OrderHomeState extends State<OrderHome> {
                 shrinkWrap: true,
                 itemBuilder: (context, index) => Center(
                   child: cart[index],
+                ),
+              ),
+              Visibility(
+                visible: cart.isNotEmpty,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                  child: CoffeeButton(text: 'Clear Cart', onPressed: clearCart),
                 ),
               ),
               Container(
@@ -187,7 +213,7 @@ class _OrderHomeState extends State<OrderHome> {
                         ),
                         const Spacer(),
                         MyText(
-                          text: '\$ $price',
+                          text: '\$ 0',
                           size: 14,
                           isBold: true,
                           color: MyColors().textBlack,
@@ -241,7 +267,7 @@ class _OrderHomeState extends State<OrderHome> {
                           ),
                           const Spacer(),
                           MyText(
-                            text: '\$ $totalPrice',
+                            text: '\$ 0',
                             size: 14,
                             isBold: true,
                             color: MyColors().textBlack,
@@ -293,7 +319,8 @@ class _OrderHomeState extends State<OrderHome> {
                                               width: 15,
                                             ),
                                             CashBottomNavigation(
-                                                cash: totalPrice),
+                                              cash: 0.toString(),
+                                            ),
                                             const Spacer(),
                                             const Icon(Icons.more_horiz),
                                           ],
@@ -306,6 +333,30 @@ class _OrderHomeState extends State<OrderHome> {
                                               widget.updateIndex(0);
                                             });
                                             Navigator.pop(context);
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              SnackBar(
+                                                content: const MyText(
+                                                  text: 'Ordered Successfully',
+                                                  color: Colors.white,
+                                                  isBold: false,
+                                                  size: 16,
+                                                ),
+                                                duration: const Duration(
+                                                    milliseconds: 700),
+                                                behavior:
+                                                    SnackBarBehavior.floating,
+                                                backgroundColor:
+                                                    MyColors().myBrown,
+                                                shape:
+                                                    const RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                    Radius.circular(15),
+                                                  ),
+                                                ),
+                                              ),
+                                            );
                                           },
                                         ),
                                       ],

@@ -20,22 +20,34 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  
   @override
   Widget build(BuildContext context) {
-    List<Widget> mainPages = [
-    const NavHome(),
-    const NavHome(),
-    OrderHome(updateIndex: updateSelectedIndex),
-    const NavHome(),
-  ];
 
     var screenSize = MediaQuery.of(context).size;
     var screenWidth = MediaQuery.of(context).size.width;
     var screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: const Color(0xffF9F9F9),
-      body: mainPages[selectedIndex],
+      body: Stack(
+        children: [
+          Offstage(
+            offstage: selectedIndex != 0,
+            child: const NavHome(),
+          ),
+          Offstage(
+            offstage: selectedIndex != 1,
+            child: const NavHome(),
+          ),
+          Offstage(
+            offstage: selectedIndex != 2,
+            child: OrderHome(updateIndex: updateSelectedIndex),
+          ),
+          Offstage(
+            offstage: selectedIndex != 3,
+            child: const NavHome(),
+          ),
+        ],
+      ),
       bottomNavigationBar: Material(
         elevation: 15,
         borderRadius: const BorderRadius.vertical(top: Radius.circular(25)),
