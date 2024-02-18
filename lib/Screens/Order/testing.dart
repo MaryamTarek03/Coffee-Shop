@@ -16,7 +16,7 @@ class TestingWidget extends StatelessWidget {
       //TODO: ADD THIS FUNCTION AND ITS PARAMETER TO GRID ITEM
       onPressed: () {
         // orderedItemsList.add(OrderItem());
-        onPressed(orderedItemsList);
+        onPressed(cart);
       },
       child: const Text('add Widget'),
     );
@@ -43,11 +43,13 @@ class TestNavigation extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => OrderHome(),
+                    builder: (context) => OrderHome(
+                      updateIndex: (int) {},
+                    ),
                   ),
                 );
               },
-              child: Text('GO TO'),
+              child: const Text('GO TO'),
             ),
           ],
         ),

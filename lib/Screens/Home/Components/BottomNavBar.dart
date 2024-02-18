@@ -1,31 +1,36 @@
+import 'package:coffee_shop/colors_and_constants.dart';
 import 'package:flutter/material.dart';
 
 class NavBar extends StatefulWidget {
-  const NavBar({super.key});
+  const NavBar({super.key, required this.updateParent, required this.selectedIcon});
+
+  final void Function(int) updateParent;
+
+  final int selectedIcon;
 
   @override
   State<NavBar> createState() => _NavBarState();
 }
 
 class _NavBarState extends State<NavBar> {
-  int selectedIconBar = 0;
 
   @override
   Widget build(BuildContext context) {
+    int selectedIconBar = widget.selectedIcon;
     return BottomNavigationBar(
-      iconSize: 34,
+      iconSize: 30,
+      elevation: 0,
       currentIndex: selectedIconBar,
-      backgroundColor: const Color(0xffF9F9F9),
-      selectedItemColor: const Color(0xffC77B51),
+      backgroundColor: Colors.white,
+      selectedItemColor: MyColors().myBrown,
       unselectedItemColor: Colors.grey,
-      selectedFontSize: 14.0,
-      unselectedFontSize: 12.0,
+      selectedFontSize: 10.0,
+      unselectedFontSize: 8.0,
       showSelectedLabels: true,
-      //type: BottomNavigationBarType.shifting,
       onTap: (val) {
         setState(() {
           selectedIconBar = val;
-          //print(selectedIconBar);
+          widget.updateParent(val);
         });
       },
       items: const [
@@ -34,24 +39,28 @@ class _NavBarState extends State<NavBar> {
             AssetImage('assets/icons/Home.png'),
           ),
           label: 'Home',
+          backgroundColor: Colors.white,
         ),
         BottomNavigationBarItem(
           icon: ImageIcon(
             AssetImage('assets/icons/Heart.png'),
           ),
-          label: 'Fav',
+          label: 'Favourite',
+          backgroundColor: Colors.white,
         ),
         BottomNavigationBarItem(
           icon: ImageIcon(
             AssetImage('assets/icons/ShoppingBag.png'),
           ),
-          label: 'Shopping',
+          label: 'Orders',
+          backgroundColor: Colors.white,
         ),
         BottomNavigationBarItem(
           icon: ImageIcon(
             AssetImage('assets/icons/Notification.png'),
           ),
-          label: 'Notification',
+          label: 'Notifications',
+          backgroundColor: Colors.white,
         ),
       ],
     );

@@ -17,28 +17,25 @@ class GridPlaceholder extends StatefulWidget {
 }
 
 class _GridPlaceholderState extends State<GridPlaceholder> {
-  bool isAdded = false;
-
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      icon: Icon(
-        isAdded ? Icons.done : Icons.add,
+      icon: const Icon(
+        Icons.add,
         size: 250,
       ),
       onPressed: () {
         setState(() {
-          if (!isAdded) {
-            orderedItemsList.add(OrderItem(
+          cart.add(
+            OrderItem(
               name: widget.name,
               nameSubtitle: widget.subName,
               price: widget.price,
               imagePicture: widget.imagePicture,
-            ));
-            isAdded = !isAdded;
-          }
-          print(orderedItemsList);
-          widget.onPressed(orderedItemsList);
+            ),
+          );
+          print(cart);
+          widget.onPressed(cart);
         });
       },
     );

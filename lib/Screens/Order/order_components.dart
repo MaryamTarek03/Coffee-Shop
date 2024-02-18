@@ -88,7 +88,7 @@ class _MiniButtonState extends State<MiniButton> {
             ),
             MyText(
               text: widget.text,
-              size: 10,
+              size: 6,
               isBold: false,
               color: textColor,
             )
@@ -161,9 +161,10 @@ class CashBottomNavigation extends StatelessWidget {
 }
 
 class CoffeeButton extends StatelessWidget {
-  const CoffeeButton({super.key, required this.text});
+  const CoffeeButton({super.key, required this.text, required this.onPressed});
 
   final String text;
+  final void Function() onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -172,7 +173,7 @@ class CoffeeButton extends StatelessWidget {
       width: screenSize.width * 0.85,
       height: screenSize.height * 0.076,
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: onPressed,
         style: ButtonStyle(
           elevation: const MaterialStatePropertyAll(0),
           backgroundColor: MaterialStatePropertyAll(MyColors().myBrown),

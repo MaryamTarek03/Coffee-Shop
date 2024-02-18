@@ -1,7 +1,5 @@
-import 'package:coffee_shop/Screens/Order/Components/order_item.dart';
-import 'package:coffee_shop/Screens/Order/grid_item_placeholder.dart';
+import 'package:coffee_shop/Screens/Home/HomePage.dart';
 import 'package:coffee_shop/Screens/Order/order_components.dart';
-import 'package:coffee_shop/Screens/Order/testing.dart';
 import 'package:coffee_shop/colors_and_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -11,7 +9,9 @@ import 'order_deliver.dart';
 import 'order_pick_up.dart';
 
 class OrderHome extends StatefulWidget {
-  OrderHome({super.key});
+  OrderHome({super.key, required this.updateIndex});
+
+  final void Function(int) updateIndex;
 
   @override
   State<OrderHome> createState() => _OrderHomeState();
@@ -20,7 +20,7 @@ class OrderHome extends StatefulWidget {
 class _OrderHomeState extends State<OrderHome> {
   void updateListOfOrders(List<Widget> newOrderItemList) {
     setState(() {
-      orderedItemsList = newOrderItemList;
+      cart = newOrderItemList;
     });
   }
 
@@ -61,15 +61,6 @@ class _OrderHomeState extends State<OrderHome> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         forceMaterialTransparency: true,
-        leading: Padding(
-          padding: EdgeInsets.only(left: screenSize.width * 0.075),
-          child: IconButton(
-            icon: Icon(Icons.arrow_back_ios_rounded),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-        ),
         title: Text(
           'Order',
           style: GoogleFonts.sora(
@@ -83,8 +74,6 @@ class _OrderHomeState extends State<OrderHome> {
         child: Center(
           child: Column(
             children: [
-              // GridPlaceholder(onPressed: update),
-              // TestingWidget(onPressed: update),
               Container(
                 width: screenSize.width * 0.85,
                 height: screenSize.height * 0.06,
@@ -117,67 +106,13 @@ class _OrderHomeState extends State<OrderHome> {
                 width: screenSize.width * 0.85,
                 child: pages[selectedIndex],
               ),
-              //TODO: delete this container AND FIX PRICES
-              Container(
-                alignment: Alignment.topLeft,
-                width: screenSize.width * 0.85,
-                height: screenSize.height * 0.066,
-                child: SizedBox(
-                  width: screenSize.width * 0.85,
-                  child: Row(
-                    children: [
-                      Image(
-                        image: AssetImage(imagePicture),
-                        width: screenSize.width * 0.144,
-                      ),
-                      const SizedBox(
-                        width: 15,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          MyText(
-                            text: name,
-                            color: MyColors().textBlack,
-                            isBold: true,
-                            size: 16,
-                          ),
-                          MyText(
-                            text: nameSubtitle,
-                            color: MyColors().textGrey,
-                            isBold: false,
-                            size: 12,
-                          ),
-                        ],
-                      ),
-                      const Spacer(),
-                      SizedBox(
-                        height: screenSize.height * 0.0344,
-                        child: Row(
-                          children: [
-                            myIconButton('-'),
-                            SizedBox(
-                              width: 35,
-                              child: Center(
-                                child: MyText(
-                                  text: '$countNumber',
-                                  color: MyColors().textBlack,
-                                  isBold: true,
-                                  size: 14,
-                                ),
-                              ),
-                            ),
-                            myIconButton('+'),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+              ListView.builder(
+                itemCount: cart.length,
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemBuilder: (context, index) => Center(
+                  child: cart[index],
                 ),
-              ),
-              Column(
-                children: orderedItemsList,
               ),
               Container(
                 margin: const EdgeInsets.symmetric(vertical: 15),
@@ -314,6 +249,75 @@ class _OrderHomeState extends State<OrderHome> {
                         ],
                       ),
                     ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 25.0),
+                      child: CoffeeButton(
+                        text: 'Order',
+                        onPressed: () {
+                          showModalBottomSheet(
+                            context: context,
+                            elevation: 20,
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.vertical(
+                                top: Radius.circular(25),
+                              ),
+                            ),
+                            builder: (context) => Container(
+                              height: screenSize.height * 0.2,
+                              width: screenSize.width,
+                              decoration: const BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.vertical(
+                                  top: Radius.circular(25),
+                                ),
+                              ),
+                              child: Center(
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 20,
+                                  ),
+                                  child: SizedBox(
+                                    width: screenSize.width * 0.85,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            ImageIcon(
+                                              const AssetImage(
+                                                  'assets/icons/Cash.png'),
+                                              color: MyColors().myBrown,
+                                            ),
+                                            const SizedBox(
+                                              width: 15,
+                                            ),
+                                            CashBottomNavigation(
+                                                cash: totalPrice),
+                                            const Spacer(),
+                                            const Icon(Icons.more_horiz),
+                                          ],
+                                        ),
+                                        CoffeeButton(
+                                          text: 'Check Out',
+                                          onPressed: () {
+                                            setState(() {
+                                              cart.clear();
+                                              widget.updateIndex(0);
+                                            });
+                                            Navigator.pop(context);
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -321,57 +325,11 @@ class _OrderHomeState extends State<OrderHome> {
           ),
         ),
       ),
-      bottomNavigationBar: Material(
-        elevation: 15,
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(25)),
-        child: Container(
-          height: screenSize.height * 0.2,
-          width: screenSize.width * 0.9,
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.vertical(
-              top: Radius.circular(25),
-            ),
-          ),
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: 20,
-              ),
-              child: SizedBox(
-                width: screenSize.width * 0.85,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Row(
-                      children: [
-                        ImageIcon(
-                          const AssetImage('assets/icons/Cash.png'),
-                          color: MyColors().myBrown,
-                        ),
-                        const SizedBox(
-                          width: 15,
-                        ),
-                        CashBottomNavigation(cash: totalPrice),
-                        const Spacer(),
-                        const Icon(Icons.more_horiz),
-                      ],
-                    ),
-                    const CoffeeButton(
-                      text: 'Order',
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
     );
   }
 
   Widget swapPages(double width, double height, int index, String text) {
-    return GestureDetector(
+    return InkWell(
       onTap: () {
         setState(() {
           selectedIndex = index;
@@ -394,33 +352,6 @@ class _OrderHomeState extends State<OrderHome> {
                   : FontWeight.normal),
               fontSize: 16,
               color: (selectedIndex == index ? Colors.white : Colors.black),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  //TODO: DELETE THIS TOO
-  Widget myIconButton(String sign) {
-    return IconButton(
-      onPressed: () {
-        setState(() {
-          sign == '+'
-              ? countNumber++
-              : countNumber > 0
-                  ? countNumber--
-                  : countNumber = countNumber;
-        });
-      },
-      icon: Icon(sign == '+' ? Icons.add : Icons.remove),
-      iconSize: 16,
-      style: ButtonStyle(
-        shape: MaterialStatePropertyAll(
-          CircleBorder(
-            side: BorderSide(
-              width: 1,
-              color: MyColors().buttonGreyBorder,
             ),
           ),
         ),

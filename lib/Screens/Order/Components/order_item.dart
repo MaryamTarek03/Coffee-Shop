@@ -26,11 +26,6 @@ class OrderItem extends StatefulWidget {
 }
 
 class _OrderItemState extends State<OrderItem> {
-  // final double price = 4.53;
-  // final String name = 'Cappuccino';
-  // final String nameSubtitle = 'with Chocolate';
-  // final String imagePicture = 'assets/pictures/HomeCoffee1.png';
-
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
