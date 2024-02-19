@@ -1,7 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../colors_and_constants.dart';
+import '../../Order/order_components.dart';
 import '../Components/Categories.dart';
 import '../Components/GridView_Component.dart';
 
@@ -35,21 +37,21 @@ class NavHome extends StatelessWidget {
                         width: screenWidth * 0.85,
                         child: Row(
                           children: [
-                            const Column(
+                            Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  'Location',
-                                  style: TextStyle(
-                                      color: Colors.grey, fontSize: 16),
+                                MyText(
+                                  text: 'Location',
+                                  color: MyColors().textGrey,
+                                  isBold: false,
+                                  size: 16,
                                 ),
-                                Text(
-                                  'Rohini, New Delhi',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold),
-                                )
+                                const MyText(
+                                  text: 'Cairo, Egypt',
+                                  color: Colors.white,
+                                  isBold: true,
+                                  size: 18,
+                                ),
                               ],
                             ),
                             const Spacer(),
@@ -60,7 +62,8 @@ class NavHome extends StatelessWidget {
                                 image: DecorationImage(
                                   fit: BoxFit.cover,
                                   image: AssetImage(
-                                      'assets/pictures/HomeProfile.png'),
+                                    'assets/pictures/HomeProfile.png',
+                                  ),
                                 ),
                               ),
                             )
@@ -71,17 +74,23 @@ class NavHome extends StatelessWidget {
                         height: 30,
                       ),
                       SizedBox(
+                        height: screenHeight * 0.064,
                         width: screenWidth * 0.85,
                         child: TextFormField(
                           style: GoogleFonts.sora(color: Colors.white),
                           cursorColor: Colors.white,
                           decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(18),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(15),
+                              borderSide: const BorderSide(
+                                width: 0,
+                              ),
                             ),
-                            prefix: const Icon(
-                              Icons.search,
-                              color: Colors.white,
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(15),
+                              borderSide: const BorderSide(
+                                width: 0,
+                              ),
                             ),
                             filled: true,
                             fillColor: const Color(0xff313131),

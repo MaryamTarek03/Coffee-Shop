@@ -19,6 +19,7 @@ class MyText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
+      textAlign: TextAlign.center,
       style: GoogleFonts.sora(
         fontSize: size,
         fontWeight: (isBold ? FontWeight.w600 : FontWeight.normal),

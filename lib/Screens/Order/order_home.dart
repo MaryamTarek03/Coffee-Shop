@@ -4,6 +4,7 @@ import 'package:coffee_shop/Screens/Order/order_components.dart';
 import 'package:coffee_shop/colors_and_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 
 import 'Components/list_of_orders.dart';
 import 'order_deliver.dart';

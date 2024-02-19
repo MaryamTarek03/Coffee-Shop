@@ -18,8 +18,6 @@ class CustomGridView extends StatefulWidget {
 class _CustomGridViewState extends State<CustomGridView> {
   @override
   Widget build(BuildContext context) {
-    var screenSize = MediaQuery.of(context).size;
-    var screenWidth = MediaQuery.of(context).size.width;
     var screenHeight = MediaQuery.of(context).size.height;
     return GridView.builder(
       shrinkWrap: true,
@@ -35,7 +33,7 @@ class _CustomGridViewState extends State<CustomGridView> {
         CoffeeModel coffeeModel = coffeeList[index];
         return Coffee(
           coffeeModel: coffeeModel,
-          onPressed: (List) {},
+          onPressed: (list) {},
         );
       },
     );
@@ -47,11 +45,9 @@ class Coffee extends StatefulWidget {
 
   final CoffeeModel coffeeModel;
   final void Function(List<Widget>) onPressed;
+  bool favourite = false;
   bool isAdded = false;
   int index = 0;
-  // bool exist(){
-    
-  // }
 
   @override
   State<Coffee> createState() => _CoffeeState();
@@ -107,9 +103,9 @@ class _CoffeeState extends State<Coffee> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            const Icon(
+                            Icon(
                               Icons.star,
-                              color: Colors.yellow,
+                              color: Colors.yellow[600],
                               size: 13,
                             ),
                             const SizedBox(
@@ -156,6 +152,25 @@ class _CoffeeState extends State<Coffee> {
                           style: GoogleFonts.sora(
                             fontWeight: FontWeight.w600,
                             fontSize: 18,
+                          ),
+                        ),
+                        const Spacer(),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: InkWell(
+                            onTap: () {
+                              setState(() {
+                                widget.favourite = !widget.favourite;
+                              });
+                            },
+                            child: Icon(
+                              //TODO: Make Heart filled (Icons.favorite) when added to fav page
+                              widget.favourite
+                                  ? Icons.favorite
+                                  : Icons.favorite_border_rounded,
+                              size: 32,
+                              color: Colors.red,
+                            ),
                           ),
                         ),
                         InkWell(

@@ -1,9 +1,5 @@
-import 'package:coffee_shop/Screens/Home/HomePage.dart';
-import 'package:coffee_shop/Screens/Order/grid_item_placeholder.dart';
-import 'package:coffee_shop/Screens/Order/order_home.dart';
+import 'package:coffee_shop/Screens/Onboarding/Splash_screen.dart';
 import 'package:flutter/material.dart';
-
-import 'Screens/Order/testing.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +14,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       title: 'Coffee Shop',
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      home: SplashScreen(),
     );
   }
 }
