@@ -95,6 +95,14 @@ class Notifications extends StatelessWidget {
                       text: 'Try our new Pumpkin Spice Latte!',
                       icon: Icons.assignment_outlined,
                     ),
+                    const NotificationItem(
+                      text: 'Enjoy a discounted coffee today!',
+                      icon: Icons.star_border_outlined,
+                    ),
+                    const NotificationItem(
+                      text: 'Our shop will be open late this Friday for...',
+                      icon: Icons.more_time,
+                    ),
                   ],
                 ),
               ),

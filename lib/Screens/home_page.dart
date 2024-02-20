@@ -22,6 +22,10 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  void update() {
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
@@ -35,7 +39,7 @@ class _HomePageState extends State<HomePage> {
           ),
           Offstage(
             offstage: selectedIndex != 1,
-            child: const Favourites(),
+            child: Favourites(updateParent: update),
           ),
           Offstage(
             offstage: selectedIndex != 2,

@@ -31,7 +31,7 @@ class Onboarding extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const CoffeeText(
-                      text: 'Coffee so good, your taste buds will love it ..',
+                      text: 'Coffee so good, your taste buds will love it..',
                       size: 34,
                       isBold: true,
                       color: Colors.white,
@@ -46,33 +46,17 @@ class Onboarding extends StatelessWidget {
                     const SizedBox(
                       height: 45,
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) {
-                              return const LoginPage();
-                            },
-                          ),
-                        );
-                      },
-                      child: Container(
-                        alignment: Alignment.center,
-                        height: 60,
-                        decoration: BoxDecoration(
-                            color: const Color.fromRGBO(198, 124, 78, 1),
-                            borderRadius: BorderRadius.circular(16)),
-                        child: const Text(
-                          'Get Started',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 24,
-                          ),
+                    CoffeeButton(
+                      text: 'Get Started',
+                      onPressed: () => Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) {
+                            return const LoginPage();
+                          },
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
               )

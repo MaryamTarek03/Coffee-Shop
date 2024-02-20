@@ -3,24 +3,27 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CoffeeText extends StatelessWidget {
-  const CoffeeText(
-      {super.key,
-      required this.text,
-      required this.size,
-      required this.isBold,
-      required this.color});
+  const CoffeeText({
+    super.key,
+    required this.text,
+    required this.size,
+    required this.isBold,
+    required this.color,
+    this.textAlign = TextAlign.center,
+  });
 
   final String text;
   final double size;
   final bool isBold;
   final Color color;
+  final TextAlign textAlign;
 
   @override
   Widget build(BuildContext context) {
     return Text(
       text,
       // overflow: TextOverflow.ellipsis,
-      textAlign: TextAlign.center,
+      textAlign: textAlign,
       style: GoogleFonts.sora(
         fontSize: size,
         fontWeight: (isBold ? FontWeight.w600 : FontWeight.normal),
@@ -169,16 +172,21 @@ class CashBottomNavigation extends StatelessWidget {
 }
 
 class CoffeeButton extends StatelessWidget {
-  const CoffeeButton({super.key, required this.text, required this.onPressed});
+  const CoffeeButton(
+      {super.key,
+      required this.text,
+      required this.onPressed,
+      this.width = 15});
 
   final String text;
   final void Function() onPressed;
+  final double width;
 
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
     return SizedBox(
-      width: screenSize.width * 0.85,
+      width: width == 15 ? screenSize.width * 0.85 : width,
       height: screenSize.height * 0.076,
       child: ElevatedButton(
         onPressed: onPressed,

@@ -1,14 +1,14 @@
 import 'package:coffee_shop/coffee_theme.dart';
 import 'package:flutter/material.dart';
 
-class CoffeeTextField extends StatelessWidget {
-  final String hintText;
+class CustomField extends StatelessWidget {
   final bool obscureText;
+  final String hintTxt;
 
-  const CoffeeTextField({
+  const CustomField({
     super.key,
-    required this.hintText,
     required this.obscureText,
+    required this.hintTxt,
   });
 
   @override
@@ -18,17 +18,11 @@ class CoffeeTextField extends StatelessWidget {
       width: screenWidth * 0.85,
       child: TextFormField(
         obscureText: obscureText,
-        validator: (val) {
-          if (val == null || val.isEmpty) return 'Please fill this field';
-          if (hintText == 'Password') {
-            return (val.toLowerCase() != '1234')
-                ? ('$hintText is incorrect')
-                : (null);
-          } else {
-            return (val.toLowerCase() != 'mars')
-                ? ('$hintText is incorrect')
-                : (null);
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return '$hintTxt field is required.';
           }
+          return null;
         },
         decoration: InputDecoration(
           enabledBorder: OutlineInputBorder(
@@ -49,7 +43,7 @@ class CoffeeTextField extends StatelessWidget {
           ),
           fillColor: Colors.white,
           filled: true,
-          hintText: hintText,
+          hintText: hintTxt,
           hintStyle: TextStyle(color: Colors.grey[500]),
         ),
       ),

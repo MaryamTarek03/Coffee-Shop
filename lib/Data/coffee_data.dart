@@ -9,6 +9,7 @@ List<CoffeeModel> coffeeList = [
     imgPath: 'assets/pictures/HomeCoffee1.png',
     price: 4.53,
     rate: 4.8,
+    isFavourite: false,
   ),
   CoffeeModel(
     name: 'Cappuccino',
@@ -18,6 +19,7 @@ List<CoffeeModel> coffeeList = [
     imgPath: 'assets/pictures/HomeCoffee2.png',
     price: 3.90,
     rate: 4.9,
+    isFavourite: false,
   ),
   CoffeeModel(
     name: 'Cappuccino',
@@ -27,6 +29,7 @@ List<CoffeeModel> coffeeList = [
     imgPath: 'assets/pictures/HomeCoffee3.png',
     price: 6.1,
     rate: 4.5,
+    isFavourite: false,
   ),
   CoffeeModel(
     name: 'Cappuccino',
@@ -36,6 +39,7 @@ List<CoffeeModel> coffeeList = [
     imgPath: 'assets/pictures/HomeCoffee4.png',
     price: 15.4,
     rate: 4.0,
+    isFavourite: false,
   ),
   CoffeeModel(
     name: 'Cappuccino',
@@ -45,6 +49,7 @@ List<CoffeeModel> coffeeList = [
     imgPath: 'assets/pictures/HomeCoffee5.jpg',
     price: 9.6,
     rate: 5.0,
+    isFavourite: false,
   ),
   CoffeeModel(
     name: 'Cappuccino',
@@ -56,6 +61,7 @@ List<CoffeeModel> coffeeList = [
     imgPath: 'assets/pictures/HomeCoffee6.jpg',
     price: 15.3,
     rate: 4.0,
+    isFavourite: false,
   ),
   CoffeeModel(
     name: 'Cappuccino',
@@ -68,6 +74,7 @@ List<CoffeeModel> coffeeList = [
     imgPath: 'assets/pictures/HomeCoffee7.jpeg',
     price: 4.4,
     rate: 4.0,
+    isFavourite: false,
   ),
   CoffeeModel(
     name: 'Cappuccino',
@@ -77,6 +84,7 @@ List<CoffeeModel> coffeeList = [
     imgPath: 'assets/pictures/HomeCoffee8.jpeg',
     price: 2.4,
     rate: 4.1,
+    isFavourite: false,
   ),
   CoffeeModel(
     name: 'Cappuccino',
@@ -88,5 +96,6 @@ List<CoffeeModel> coffeeList = [
     imgPath: 'assets/pictures/HomeCoffee9.jpeg',
     price: 6.4,
     rate: 4.7,
+    isFavourite: false,
   ),
 ];
