@@ -84,7 +84,7 @@ class Notifications extends StatelessWidget {
                       icon: Icons.discount_outlined,
                     ),
                     const NotificationItem(
-                      text: 'Don’t miss out on our limited-time offer!',
+                      text: 'Don’t miss out on our limited offer!',
                       icon: Icons.star_rate_outlined,
                     ),
                     const NotificationItem(
@@ -100,7 +100,7 @@ class Notifications extends StatelessWidget {
                       icon: Icons.star_border_outlined,
                     ),
                     const NotificationItem(
-                      text: 'Our shop will be open late this Friday for...',
+                      text: 'We will be open late this Friday for...',
                       icon: Icons.more_time,
                     ),
                   ],

@@ -182,14 +182,10 @@ class _CoffeeState extends State<Coffee> {
                                   widget.coffeeModel.isFavourite =
                                       !widget.coffeeModel.isFavourite;
                                   if (widget.coffeeModel.isFavourite) {
-                                    favourites.add(
-                                      FavouriteItem(
-                                        coffeeModel: widget.coffeeModel,
-                                      ),
-                                    );
+                                    favourites.add(widget.coffeeModel);
                                   } else {
                                     favourites.removeWhere((element) {
-                                      return element.coffeeModel.price ==
+                                      return element.price ==
                                           widget.coffeeModel.price;
                                     });
                                   }

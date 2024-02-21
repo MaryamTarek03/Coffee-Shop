@@ -95,7 +95,7 @@ class FavouriteListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.builder(
       itemBuilder: (context, index) {
-        CoffeeModel coffeeModel = coffeeList[index];
+        CoffeeModel coffeeModel = favourites[index];
         return FavouriteItem(coffeeModel: coffeeModel);
       },
       itemCount: favourites.length,
