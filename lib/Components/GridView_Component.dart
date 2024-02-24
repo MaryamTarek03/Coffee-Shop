@@ -14,7 +14,10 @@ import '../Data/coffee_data.dart';
 class CustomGridView extends StatefulWidget {
   const CustomGridView({
     super.key,
+    required this.search,
   });
+
+  final String search;
 
   @override
   State<CustomGridView> createState() => _CustomGridViewState();
@@ -27,7 +30,7 @@ class _CustomGridViewState extends State<CustomGridView> {
     return GridView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      itemCount: coffeeList.length,
+      itemCount: searchList.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         crossAxisSpacing: 15,
@@ -35,7 +38,7 @@ class _CustomGridViewState extends State<CustomGridView> {
         mainAxisExtent: screenHeight * 0.34,
       ),
       itemBuilder: (context, index) {
-        CoffeeModel coffeeModel = coffeeList[index];
+        CoffeeModel coffeeModel = searchList[index];
         return Coffee(
           coffeeModel: coffeeModel,
           onPressed: (list) {},
@@ -130,7 +133,7 @@ class _CoffeeState extends State<Coffee> {
                                 width: 3,
                               ),
                               Text(
-                                widget.coffeeModel.rate.toString(),
+                                widget.coffeeModel.rate.toStringAsFixed(1),
                                 style: const TextStyle(color: Colors.white),
                               )
                             ],

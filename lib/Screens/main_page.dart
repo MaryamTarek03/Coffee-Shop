@@ -1,3 +1,5 @@
+import 'package:coffee_shop/Data/cart.dart';
+import 'package:coffee_shop/Data/coffee_data.dart';
 import 'package:coffee_shop/Screens/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -7,11 +9,19 @@ import '../Components/order_components.dart';
 import '../Components/categories.dart';
 import '../Components/GridView_Component.dart';
 
-class MainPage extends StatelessWidget {
+class MainPage extends StatefulWidget {
   const MainPage({
     super.key,
   });
 
+  @override
+  State<MainPage> createState() => _MainPageState();
+}
+
+TextEditingController searchController = TextEditingController();
+String searchText = '';
+
+class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     var screenWidth = MediaQuery.of(context).size.width;
@@ -83,8 +93,21 @@ class MainPage extends StatelessWidget {
                         height: screenHeight * 0.064,
                         width: screenWidth * 0.85,
                         child: TextFormField(
+                          controller: searchController,
                           style: GoogleFonts.sora(color: Colors.white),
                           cursorColor: Colors.white,
+                          onChanged: (value) {
+                            setState(() {
+                              searchList.clear();
+                              for (var element in coffeeList) {
+                                if (element.subName
+                                    .toLowerCase()
+                                    .contains(value.toLowerCase())) {
+                                  searchList.add(element);
+                                }
+                              }
+                            });
+                          },
                           decoration: InputDecoration(
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(15),
@@ -97,6 +120,18 @@ class MainPage extends StatelessWidget {
                               borderSide: const BorderSide(
                                 width: 0,
                               ),
+                            ),
+                            suffixIcon: IconButton(
+                              icon: const Icon(
+                                Icons.clear,
+                                color: Colors.white,
+                              ),
+                              onPressed: () {
+                                searchController.text = '';
+                                setState(() {
+                                  searchList = List.from(coffeeList);
+                                });
+                              },
                             ),
                             filled: true,
                             fillColor: const Color(0xff313131),
@@ -136,7 +171,7 @@ class MainPage extends StatelessWidget {
           ),
           SizedBox(
             width: screenWidth * 0.85,
-            child: const CustomGridView(),
+            child: CustomGridView(search: searchController.text),
           ),
         ],
       ),

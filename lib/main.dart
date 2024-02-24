@@ -1,3 +1,5 @@
+import 'package:coffee_shop/Data/cart.dart';
+import 'package:coffee_shop/Data/coffee_data.dart';
 import 'package:coffee_shop/Screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 
